@@ -41,7 +41,8 @@ mkdir -p "${SRC_ROOT}/${RELEASE}"
 
 for OS in ${SRC_BUILD_PLATFORMS[@]}; do
   for ARCH in ${SRC_BUILD_ARCHS[@]}; do
-    echo ${GO_DIST_LIST} | grep -wq "${OS}/${ARCH}" || continue
+    echo ${GO_DIST_LIST} | grep -wq "${OS}/${ARCH}" ||
+      continue
 
     NAME="${BASENAME}_${OS}_${ARCH}"
     if [[ "${OS}" == "windows" ]]; then
@@ -49,7 +50,7 @@ for OS in ${SRC_BUILD_PLATFORMS[@]}; do
     fi
     NAME="${SRC_ROOT}/${RELEASE}/${NAME}"
     echo "Building to ${NAME} for ${OS}/${ARCH}"
-    GOARCH=${ARCH} GOOS=${OS} CGO_ENABLED=0 ${GO_BUILD_CMD} -ldflags "${GO_BUILD_LDFLAGS}" -o "${NAME}" ./cmd/${BASENAME}
-    shasum -a 256 "${NAME}" >"${NAME}".sha256
+    GOARCH=${ARCH} GOOS=${OS} CGO_ENABLED=0 ${GO_BUILD_CMD} -ldflags "${GO_BUILD_LDFLAGS}" -o "${NAME}" ./cmd/${BASENAME} &&
+      shasum -a 256 "${NAME}" >"${NAME}".sha256
   done
 done
