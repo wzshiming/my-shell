@@ -30,7 +30,7 @@ GO_BUILD_CMD="go build ${GO_BUILD_FLAGS} "
 GO_BUILD_LDFLAGS="-s -w -X main.commitHash=${COMMIT_HASH} -X main.buildDate=${DATE} -X main.version=${VERSION} -X main.flagImportDuringSolve=${IMPORT_DURING_SOLVE}"
 
 if [[ -z "${SRC_BUILD_PLATFORMS}" ]]; then
-  SRC_BUILD_PLATFORMS="linux windows darwin freebsd"
+  SRC_BUILD_PLATFORMS="linux windows darwin freebsd openbsd"
 fi
 
 if [[ -z "${SRC_BUILD_ARCHS}" ]]; then
