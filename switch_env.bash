@@ -74,13 +74,11 @@ if [[ -z "${GOBIN}" ]]; then
   GOBIN="$GOPATH/bin"
 fi
 
-PATH=$(echo "${GOROOT}/bin:${GOBIN}:${PATH}" | sed 's#//#/#g' | tr ':' '\n' | cat -n | sort -k2,2 -k1,1n | uniq -f1 | sort -k1,1n | cut -f2- | tr '\n' ':')
-
 echo "export GOOS=${GOOS}"
 echo "export GOARCH=${GOARCH}"
 echo "export GOROOT=${GOROOT}"
 echo "export GOPATH=${GOPATH}"
 echo "export GOBIN=${GOBIN}"
-echo "export PATH=${PATH}"
+echo "export PATH=${GOROOT}/bin:${GOBIN}:\${PATH}"
 echo "# $(go version)"
 echo "# source <($0 $1)"
